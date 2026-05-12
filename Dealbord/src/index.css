@@ -180,27 +180,33 @@ a { text-decoration: none; color: inherit; }
   box-shadow: 0 0 12px var(--brand-glow);
 }
 
-/* ── Deal grid – kant i kant mosaikflöde ── */
+/* ── Deal grid – sant masonry, kant i kant ── */
 .deal-grid {
-  columns: 5 220px;
+  columns: 5 200px;
   column-gap: 0;
+  line-height: 0;        /* eliminerar dolda whitespace-gap */
+  font-size: 0;          /* säkerhetskopiering för äldre webkit */
 }
 
 /* ── Deal card ── */
 .deal-card {
-  display: block;
+  display: inline-block; /* krävs för att columns ska lägga korten tätt */
+  width: 100%;
   position: relative;
   overflow: hidden;
   break-inside: avoid;
-  margin-bottom: 0;
+  line-height: normal;
+  font-size: 1rem;
+  vertical-align: top;
   cursor: pointer;
 }
 
-/* Bilden fyller kortet i sin naturliga proportion */
+/* Bilden i sin naturliga proportion – ingen cropping, ingen fixad höjd */
 .deal-image-wrap {
   position: relative;
   background: var(--surface-2);
   line-height: 0;
+  overflow: hidden;
 }
 .deal-image-wrap img {
   width: 100%;
@@ -209,7 +215,7 @@ a { text-decoration: none; color: inherit; }
   transition: transform .5s ease;
 }
 .deal-card:hover .deal-image-wrap img {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 .deal-image-placeholder {
   height: 180px;
