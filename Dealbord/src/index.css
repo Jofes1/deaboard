@@ -180,56 +180,45 @@ a { text-decoration: none; color: inherit; }
   box-shadow: 0 0 12px var(--brand-glow);
 }
 
-/* ── Deal grid (masonry) ── */
+/* ── Deal grid – kant i kant mosaikflöde ── */
 .deal-grid {
-  columns: 5 240px;
-  column-gap: 14px;
+  columns: 5 220px;
+  column-gap: 0;
 }
 
 /* ── Deal card ── */
 .deal-card {
   display: block;
-  background: var(--surface);
-  border-radius: var(--radius);
+  position: relative;
   overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s;
   break-inside: avoid;
-  margin-bottom: 14px;
-}
-.deal-card:hover {
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: var(--shadow-hover);
-  border-color: #3a5a3a;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 
-/* Stora bilder som fyller kortet */
+/* Bilden fyller kortet i sin naturliga proportion */
 .deal-image-wrap {
   position: relative;
   background: var(--surface-2);
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
+  line-height: 0;
 }
 .deal-image-wrap img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
-  transition: transform .4s ease;
+  transition: transform .5s ease;
 }
 .deal-card:hover .deal-image-wrap img {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 .deal-image-placeholder {
-  width: 100%;
-  height: 100%;
+  height: 180px;
   display: grid;
   place-items: center;
   font-size: 3rem;
   font-weight: 700;
   color: var(--border);
-  background: linear-gradient(135deg, var(--surface), var(--surface-2));
+  background: var(--surface);
 }
 .deal-badge {
   position: absolute;
@@ -241,52 +230,56 @@ a { text-decoration: none; color: inherit; }
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 100px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,.5);
+  z-index: 2;
 }
-.deal-body {
-  padding: 14px 16px 16px;
+
+/* Hover-overlay med info */
+.deal-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.3) 55%, transparent 100%);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.deal-card:hover .deal-overlay {
+  opacity: 1;
 }
 .deal-store {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--brand);
   text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: 5px;
+  letter-spacing: .07em;
+  margin-bottom: 4px;
 }
 .deal-title {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 7px;
-  color: var(--text);
-}
-.deal-price {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
+  line-height: 1.35;
+  color: #fff;
+  margin-bottom: 6px;
 }
 .deal-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  flex-wrap: wrap;
 }
-.deal-category {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  background: var(--bg-mid);
-  padding: 3px 9px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
+.deal-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
 }
 .deal-expiry {
-  font-size: 0.72rem;
-  color: var(--text-muted);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,.65);
 }
-.deal-expiry.urgent { color: #e74c3c; font-weight: 600; }
+.deal-expiry.urgent { color: #f87171; font-weight: 600; }
 
 /* ── States ── */
 .state-container {

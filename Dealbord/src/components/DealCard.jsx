@@ -25,7 +25,7 @@ export default function DealCard({ deal }) {
             src={deal.image_url}
             alt={deal.title}
             loading="lazy"
-            onError={e => { e.target.style.display = 'none' }}
+            onError={e => { e.target.parentElement.style.display = 'none' }}
           />
         ) : (
           <div className="deal-image-placeholder">{deal.store?.[0] ?? '?'}</div>
@@ -34,18 +34,15 @@ export default function DealCard({ deal }) {
           <span className="deal-badge">{deal.discount}</span>
         )}
       </div>
-      <div className="deal-body">
+
+      {/* Info-overlay visas vid hover */}
+      <div className="deal-overlay">
         <p className="deal-store">{deal.store}</p>
         <h3 className="deal-title">{deal.title}</h3>
-        {deal.price && (
-          <p className="deal-price">{deal.price}</p>
-        )}
         <div className="deal-footer">
-          <span className="deal-category">{deal.category}</span>
+          {deal.price && <span className="deal-price">{deal.price}</span>}
           {remaining && (
-            <span className={`deal-expiry${urgent ? ' urgent' : ''}`}>
-              {remaining}
-            </span>
+            <span className={`deal-expiry${urgent ? ' urgent' : ''}`}>{remaining}</span>
           )}
         </div>
       </div>
