@@ -201,6 +201,13 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 
+/* Breda banner-bilder (ratio > 2.5:1) sträcker sig över hela bredden */
+.card-wide {
+  column-span: all;
+  display: block;
+  width: 100%;
+}
+
 /* Bilden i sin naturliga proportion – ingen cropping, ingen fixad höjd */
 .deal-image-wrap {
   position: relative;
