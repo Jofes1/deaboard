@@ -12,6 +12,7 @@ export async function getDeals({ category, search } = {}) {
     .select('*')
     .eq('active', true)
     .gt('expires_at', new Date().toISOString())
+    .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
 
   if (category && category !== 'Alla') {
@@ -48,6 +49,7 @@ export async function getAllDealsAdmin() {
   const { data, error } = await supabase
     .from('deals')
     .select('*')
+    .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
   if (error) throw error
   return data

@@ -9,6 +9,7 @@ const EMPTY_FORM = {
   discount: '',
   affiliate_link: '',
   expires_at: '',
+  sort_order: 10,
   active: true,
 }
 
@@ -115,6 +116,12 @@ function DealForm({ initial, onSave, onCancel }) {
           <label>Utgångsdatum *</label>
           <input required className="form-input" type="datetime-local" value={form.expires_at}
             onChange={e => set('expires_at', e.target.value)} />
+        </div>
+        <div className="form-field">
+          <label>Prioritet</label>
+          <input className="form-input" type="number" min="1" value={form.sort_order}
+            onChange={e => set('sort_order', parseInt(e.target.value) || 10)}
+            placeholder="1–100 (lägre = högre upp)" />
         </div>
         <div className="form-field checkbox-field">
           <label>
