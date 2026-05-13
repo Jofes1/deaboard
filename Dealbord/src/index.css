@@ -180,45 +180,45 @@ a { text-decoration: none; color: inherit; }
   box-shadow: 0 0 12px var(--brand-glow);
 }
 
-/* ── Deal grid – sant masonry, kant i kant ── */
+/* ── Deal grid – justified layout, fyller alltid raden ── */
 .deal-grid {
-  columns: 5 200px;
-  column-gap: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0;
 }
 
 /* ── Deal card ── */
 .deal-card {
-  display: block;
-  width: 100%;
+  /* flex-basis proportionellt mot bildens ratio – fyller alltid raden via flex-grow */
+  flex: 1 1 calc(var(--ratio, 1.5) * 280px);
+  min-width: 120px;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
-  break-inside: avoid;
   cursor: pointer;
 }
 
-/* Breda banner-bilder (ratio > 2.5:1) sträcker sig över hela bredden */
-.card-wide {
-  column-span: all;
-}
-
-/* Bilden i sin naturliga proportion – ingen cropping, ingen fixad höjd */
 .deal-image-wrap {
   position: relative;
   background: var(--surface-2);
-  line-height: 0;
   overflow: hidden;
+  height: 280px; /* fast radhöjd, bilder fyller med object-fit: cover */
 }
 .deal-image-wrap img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: center;
   transition: transform .5s ease;
 }
 .deal-card:hover .deal-image-wrap img {
   transform: scale(1.05);
 }
 .deal-image-placeholder {
-  height: 180px;
+  width: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
   font-size: 3rem;

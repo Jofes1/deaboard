@@ -2,9 +2,6 @@ import { useRef } from 'react'
 
 export const CATEGORIES = ['Alla', 'Mode', 'Elektronik', 'Sport', 'Hem', 'Skönhet', 'Mat', 'Resor', 'Övrigt']
 
-// Breda banner-bilder (ratio > 2.5:1) spänner över hela gridens bredd
-const WIDE_RATIO = 2.5
-
 function daysLeft(expiresAt) {
   const diff = new Date(expiresAt) - new Date()
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24))
@@ -20,8 +17,10 @@ export default function DealCard({ deal }) {
 
   function handleImageLoad(e) {
     const { naturalWidth, naturalHeight } = e.target
-    if (naturalWidth / naturalHeight > WIDE_RATIO && cardRef.current) {
-      cardRef.current.classList.add('card-wide')
+    if (cardRef.current) {
+      // Cappa ratio till max 4 så breda banners kan dela rad med andra kort
+      const ratio = Math.min(naturalWidth / naturalHeight, 4)
+      cardRef.current.style.setProperty('--ratio', ratio)
     }
   }
 
