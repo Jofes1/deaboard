@@ -184,28 +184,21 @@ a { text-decoration: none; color: inherit; }
 .deal-grid {
   columns: 5 200px;
   column-gap: 0;
-  line-height: 0;        /* eliminerar dolda whitespace-gap */
-  font-size: 0;          /* säkerhetskopiering för äldre webkit */
 }
 
 /* ── Deal card ── */
 .deal-card {
-  display: inline-block; /* krävs för att columns ska lägga korten tätt */
+  display: block;
   width: 100%;
   position: relative;
   overflow: hidden;
   break-inside: avoid;
-  line-height: normal;
-  font-size: 1rem;
-  vertical-align: top;
   cursor: pointer;
 }
 
 /* Breda banner-bilder (ratio > 2.5:1) sträcker sig över hela bredden */
 .card-wide {
   column-span: all;
-  display: block;
-  width: 100%;
 }
 
 /* Bilden i sin naturliga proportion – ingen cropping, ingen fixad höjd */
