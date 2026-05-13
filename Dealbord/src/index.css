@@ -93,6 +93,9 @@ a { text-decoration: none; color: inherit; }
 .hero p {
   color: var(--text-muted);
   font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 /* ── Controls ── */

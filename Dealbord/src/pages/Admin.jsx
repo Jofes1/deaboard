@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react'
 import { getAllDealsAdmin, createDeal, updateDeal, deleteDeal } from '../lib/supabase'
-import { CATEGORIES } from '../components/DealCard'
-
-const ADMIN_CATEGORIES = CATEGORIES.filter(c => c !== 'Alla')
-
 const EMPTY_FORM = {
   title: '',
   store: '',
-  category: 'Mode',
+  category: '',
   image_url: '',
   price: '',
   discount: '',
@@ -90,10 +86,8 @@ function DealForm({ initial, onSave, onCancel }) {
         </div>
         <div className="form-field">
           <label>Kategori *</label>
-          <select required className="form-input" value={form.category}
-            onChange={e => set('category', e.target.value)}>
-            {ADMIN_CATEGORIES.map(c => <option key={c}>{c}</option>)}
-          </select>
+          <input required className="form-input" value={form.category}
+            onChange={e => set('category', e.target.value)} placeholder="T.ex. Mode, Elektronik, Sport" />
         </div>
         <div className="form-field">
           <label>Rabatt-text</label>

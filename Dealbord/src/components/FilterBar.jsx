@@ -1,9 +1,15 @@
-import { CATEGORIES } from './DealCard'
+export default function FilterBar({ active, onChange, categories }) {
+  if (!categories.length) return null
 
-export default function FilterBar({ active, onChange }) {
   return (
     <div className="filter-bar">
-      {CATEGORIES.map(cat => (
+      <button
+        className={`filter-btn${active === 'Alla' ? ' active' : ''}`}
+        onClick={() => onChange('Alla')}
+      >
+        Alla
+      </button>
+      {categories.map(cat => (
         <button
           key={cat}
           className={`filter-btn${active === cat ? ' active' : ''}`}

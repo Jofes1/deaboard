@@ -2,20 +2,26 @@ import { useState, useEffect, useCallback } from 'react'
 import { getDeals } from '../lib/supabase'
 import DealCard from '../components/DealCard'
 import FilterBar from '../components/FilterBar'
-import SearchBar from '../components/SearchBar'
 
 export default function Home() {
   const [deals, setDeals] = useState([])
+  const [allDeals, setAllDeals] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [category, setCategory] = useState('Alla')
-  const [search, setSearch] = useState('')
+
+  // Hämta alla deals en gång för att bygga kategori-listan
+  useEffect(() => {
+    getDeals().then(data => setAllDeals(data)).catch(() => {})
+  }, [])
+
+  const categories = [...new Set(allDeals.map(d => d.category))].sort()
 
   const fetchDeals = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      const data = await getDeals({ category, search })
+      const data = await getDeals({ category })
       setDeals(data)
     } catch (err) {
       setError('Kunde inte hämta deals. Kontrollera din anslutning.')
@@ -23,29 +29,29 @@ export default function Home() {
     } finally {
       setLoading(false)
     }
-  }, [category, search])
+  }, [category])
 
   useEffect(() => {
-    const timer = setTimeout(fetchDeals, search ? 300 : 0)
-    return () => clearTimeout(timer)
-  }, [fetchDeals, search])
+    fetchDeals()
+  }, [fetchDeals])
 
   return (
     <main className="main">
       <div className="hero">
         <h1>Bästa deals just nu</h1>
-        <p>Aktuella kampanjer &amp; rabatter från svenska butiker</p>
+        <p>
+          Hitta aktuella kampanjer och rabatter från svenska butiker – uppdateras dagligen
+          med erbjudanden inom mode, elektronik, sport, hem och mycket mer.
+        </p>
       </div>
 
       <div className="controls">
-        <SearchBar onSearch={setSearch} />
-        <FilterBar active={category} onChange={setCategory} />
+        <FilterBar active={category} onChange={setCategory} categories={categories} />
       </div>
 
       {loading && (
         <div className="state-container">
           <div className="spinner" />
-          <p>Hämtar deals...</p>
         </div>
       )}
 
@@ -58,7 +64,7 @@ export default function Home() {
 
       {!loading && !error && deals.length === 0 && (
         <div className="state-container">
-          <p className="empty-text">Inga deals hittades{search ? ` för "${search}"` : ''}.</p>
+          <p className="empty-text">Inga deals hittades.</p>
         </div>
       )}
 
